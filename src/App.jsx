@@ -2,6 +2,8 @@ import { useState } from "react";
 import Timer from "./Timer";
 import "./style.css";
 import NightMode from "./NightMode";
+import { TestContext } from "./TestContext";
+import TimeList from "./TimeList";
 
 export default function App() {
   const [isLight, setisLight] = useState(false);
@@ -10,9 +12,17 @@ export default function App() {
     setisLight(!isLight);
   }
   return (
-    <div className={`main ${isLight ? " light" : ""}`}>
-      <NightMode isLight={isLight} handleIsLight={handleIsLight} />
-      <Timer timeLaps={timeLaps} setTimeLaps={setTimeLaps} />
-    </div>
+    <TestContext.Provider
+      value={{
+        timeLaps,
+        setTimeLaps,
+      }}
+    >
+      <div className={`main ${isLight ? " light" : ""}`}>
+        <NightMode isLight={isLight} handleIsLight={handleIsLight} />
+        <Timer />
+        <TimeList />
+      </div>
+    </TestContext.Provider>
   );
 }

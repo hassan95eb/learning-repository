@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Component } from "react";
-import TimeList from "./TimeList";
+import { TestContext } from "./TestContext";
 var interval;
 export default class Timer extends Component {
   constructor() {
@@ -12,6 +12,7 @@ export default class Timer extends Component {
       isStart: false,
     };
   }
+  static contextType = TestContext;
   startInterval = () => {
     if (this.state.isStart == false) {
       this.setState({
@@ -57,7 +58,7 @@ export default class Timer extends Component {
     let newTime = `${h > 9 ? h : "0" + h} : ${m > 9 ? m : "0" + m} : ${
       s > 9 ? s : "0" + s
     } `;
-    this.props.setTimeLaps([...this.props.timeLaps, newTime]);
+    this.context.setTimeLaps([...this.context.timeLaps, newTime]);
   };
   render() {
     let h = this.state.hour;
@@ -66,7 +67,11 @@ export default class Timer extends Component {
 
     return (
       <>
-        <h2 className="timer" onClick={this.handleSaveTime}>
+        <h2
+          className="timer"
+          onClick={this.handleSaveTime}
+          style={{ color: this.context }}
+        >
           {`${h > 9 ? h : "0" + h} : ${m > 9 ? m : "0" + m} : ${
             s > 9 ? s : "0" + s
           } `}
@@ -91,7 +96,6 @@ export default class Timer extends Component {
             reset
           </span>
         </div>
-        <TimeList>{this.props.timeLaps}</TimeList>
       </>
     );
   }
