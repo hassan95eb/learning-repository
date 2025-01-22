@@ -5,13 +5,14 @@ import NightMode from "./NightMode";
 
 export default function App() {
   const [isLight, setisLight] = useState(false);
+  const [timeLaps, setTimeLaps] = useState([]);
   function handleIsLight() {
     setisLight(!isLight);
   }
   return (
     <div className={`main ${isLight ? " light" : ""}`}>
       <NightMode isLight={isLight} handleIsLight={handleIsLight} />
-      <Timer />
+      <Timer timeLaps={timeLaps} setTimeLaps={setTimeLaps} />
     </div>
   );
 }
