@@ -1,28 +1,21 @@
-import { useState } from "react";
-import Timer from "./Timer";
-import "./style.css";
-import NightMode from "./NightMode";
-import { TestContext } from "./TestContext";
-import TimeList from "./TimeList";
+import  { useState } from 'react';
+import Content from './Content';
+import Sidebar from './Sidebar';
+import {MainContext} from './contexts/MainContext'
 
-export default function App() {
-  const [isLight, setisLight] = useState(false);
-  const [timeLaps, setTimeLaps] = useState([]);
-  function handleIsLight() {
-    setisLight(!isLight);
-  }
-  return (
-    <TestContext.Provider
-      value={{
-        timeLaps,
-        setTimeLaps,
-      }}
-    >
-      <div className={`main ${isLight ? " light" : ""}`}>
-        <NightMode isLight={isLight} handleIsLight={handleIsLight} />
-        <Timer />
-        <TimeList />
-      </div>
-    </TestContext.Provider>
-  );
+const App = ()=>{
+
+    const [showMenu , setShowMenu] = useState(false);
+
+    return (
+        <div>
+            <MainContext.Provider value={{showMenu , setShowMenu}}>
+                <Sidebar/>
+                <Content/>            
+            </MainContext.Provider>
+        </div>
+    ) 
 }
+
+
+export default App;

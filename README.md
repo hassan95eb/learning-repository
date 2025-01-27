@@ -10,5 +10,8 @@ children feature allows you to wrap components within other components, creating
 The spread operator is used to pass down additional props efficiently.
 
 Project Enhancements:
-This project utilizes useContext to improve the performance of the components. 
+This project utilizes useContext to improve the performance of the components.
 Additionally, if you click on a saved time, that time will be deleted.
+
+old section is deleted and new section is for panel admin
+and new template is ready
