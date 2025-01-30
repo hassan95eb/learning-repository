@@ -15,3 +15,5 @@ Additionally, if you click on a saved time, that time will be deleted.
 
 old section is deleted and new section is for panel admin
 and new template is ready
+
+install React Router and define BrowserRouter in App.jsx , Routes in Content and Link in SideBar
