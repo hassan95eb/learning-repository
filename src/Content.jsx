@@ -6,9 +6,11 @@ import style from "./style.module.css";
 import Todos from "./todos/Todos";
 import Users from "./users/Users";
 import { Route, Routes } from "react-router";
+import AddUser from "./users/AddUser";
 
 const Content = () => {
   const { showMenu, setShowMenu } = useContext(MainContext);
+  //   const [isUser, setIsUser] = useState(true);
 
   const handleShowMenu = (event) => {
     event.stopPropagation();
@@ -29,10 +31,16 @@ const Content = () => {
       ></i>
 
       <Routes>
+        {/* <Route
+          path="/"
+          element={isUser ? <Users /> : <Navigate replace to="/posts" />}
+        /> */}
         <Route path="/" element={<Users />} />
+        <Route path="/user/add" element={<AddUser />} />
         <Route path="/posts" element={<Posts />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/todos" element={<Todos />} />
+        <Route path="*" element={<Users />} />
       </Routes>
     </div>
   );
