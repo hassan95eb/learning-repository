@@ -17,7 +17,7 @@ const Sidebar = () => {
           <img src="src/assets/images/user2.jpg" alt="" />
         </li>
         <li>
-          <Link to="/">کاربران</Link>
+          <Link to="/user">کاربران</Link>
         </li>
         <li>
           <Link to="/posts">پست ها</Link>

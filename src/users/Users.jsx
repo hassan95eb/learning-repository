@@ -1,7 +1,25 @@
 import style from "../style.module.css";
 import { Link } from "react-router";
+import swal from "sweetalert";
 
 const Users = () => {
+  function handleDelete(id) {
+    swal({
+      title: "Are you sure?",
+      text: `Once deleted item= ${id}, you will not be able to recover this imaginary file!`,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal("Poof! Your imaginary file has been deleted!", {
+          icon: "success",
+        });
+      } else {
+        swal("Your imaginary file is safe!");
+      }
+    });
+  }
   return (
     <div className={`${style.item_content} mt-5 p-4 container-fluid`}>
       <h4 className="text-center">مدیریت کاربران</h4>
@@ -38,8 +56,13 @@ const Users = () => {
             <td>qasemB</td>
             <td>mahdicmptr@gmail.com</td>
             <td>
-              <i className="fas fa-edit text-warning mx-2 pointer"></i>
-              <i className="fas fa-trash text-danger mx-2 pointer"></i>
+              <Link to="/user/add/2">
+                <i className="fas fa-edit text-warning mx-2 pointer"></i>
+              </Link>
+              <i
+                className="fas fa-trash text-danger mx-2 pointer"
+                onClick={() => handleDelete(1)}
+              ></i>
             </td>
           </tr>
         </tbody>

@@ -35,8 +35,10 @@ const Content = () => {
           path="/"
           element={isUser ? <Users /> : <Navigate replace to="/posts" />}
         /> */}
-        <Route path="/" element={<Users />} />
-        <Route path="/user/add" element={<AddUser />} />
+        <Route path="/user" element={<Users />} />
+        <Route path="/user/add" element={<AddUser />}>
+          <Route path=":id" />
+        </Route>
         <Route path="/posts" element={<Posts />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/todos" element={<Todos />} />

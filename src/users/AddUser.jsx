@@ -1,8 +1,12 @@
+import { useParams } from "react-router";
 import "./addUser.css";
+
 function AddUser() {
+  const params = useParams();
+
   return (
     <div className="form-section d-flex justify-content-center align-items-center flex-column">
-      <h1 className="h2 my-2"> افزودن به کاربر</h1>
+      <h1 className="h2 my-2">{params.id ? "ویرایش کاربر" : "افزودن کاربر"}</h1>
       <form className="form bg-white rounded p-3">
         <div className="mb-3">
           <label htmlFor="name" className="htmlForm-label">
@@ -64,7 +68,7 @@ function AddUser() {
             بازگشت
           </button>
           <button type="submit" className="btn btn-success px-2 me-1">
-            ذخیره
+            {params.id ? "ویرایش" : "ذخیره"}
           </button>
         </div>
       </form>
