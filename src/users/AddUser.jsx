@@ -1,8 +1,11 @@
 import { useNavigate, useParams } from "react-router";
-import "./addUser.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
-
+import {
+  userGetServices,
+  userPostService,
+  userPutServices,
+} from "../Service/addUserService";
+import "./addUser.css";
 function AddUser() {
   const params = useParams();
   const navigate = useNavigate();
@@ -17,38 +20,19 @@ function AddUser() {
       zipcode: "",
     },
   });
+
   function handleSubmit(e) {
     e.preventDefault();
     if (!params.id) {
-      axios
-        .post("https://jsonplaceholder.typicode.com/users", data)
-        .then((res) => {
-          console.log(res);
-        });
+      userPostService(data);
     } else {
-      axios
-        .put(`https://jsonplaceholder.typicode.com/users/${params.id}`, data)
-        .then((res) => {
-          console.log(res);
-        });
+      userPutServices(params.id, data);
     }
   }
   useEffect(() => {
-    axios
-      .get(`https://jsonplaceholder.typicode.com/users/${params.id}`)
-      .then((res) => {
-        setData({
-          name: res.data.name,
-          username: res.data.username,
-          email: res.data.email,
-          address: {
-            city: res.data.address.city,
-            street: res.data.address.street,
-            suite: res.data.address.suite,
-            zipcode: res.data.address.zipcode,
-          },
-        });
-      });
+    if (params.id) {
+      userGetServices(params.id, setData);
+    }
   }, []);
   return (
     <div className="form-section d-flex justify-content-center align-items-center flex-column">
