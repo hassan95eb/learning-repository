@@ -1,8 +1,16 @@
+import { useEffect, useState } from "react";
 import style from "../style.module.css";
 import { Link } from "react-router";
 import swal from "sweetalert";
+import axios from "axios";
 
 const Users = () => {
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    axios.get("https://jsonplaceholder.typicode.com/users").then((res) => {
+      setUsers(res.data);
+    });
+  }, []);
   function handleDelete(id) {
     swal({
       title: "Are you sure?",
@@ -12,9 +20,21 @@ const Users = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        swal("Poof! Your imaginary file has been deleted!", {
-          icon: "success",
-        });
+        axios
+          .delete(`https://jsonplaceholder.typicode.com/users/${id}`)
+          .then((res) => {
+            if (res.status === 200) {
+              const newUsers = users.filter((t) => t.id != id);
+              setUsers(newUsers);
+              swal("Poof! Your imaginary file has been deleted!", {
+                icon: "success",
+              });
+            } else {
+              swal("errorrrrr", {
+                icon: "error",
+              });
+            }
+          });
       } else {
         swal("Your imaginary file is safe!");
       }
@@ -50,21 +70,23 @@ const Users = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>qasem</td>
-            <td>qasemB</td>
-            <td>mahdicmptr@gmail.com</td>
-            <td>
-              <Link to="/user/add/2">
-                <i className="fas fa-edit text-warning mx-2 pointer"></i>
-              </Link>
-              <i
-                className="fas fa-trash text-danger mx-2 pointer"
-                onClick={() => handleDelete(1)}
-              ></i>
-            </td>
-          </tr>
+          {users.map((t) => (
+            <tr key={t.id}>
+              <td>{t.id}</td>
+              <td>{t.name}</td>
+              <td>{t.username}</td>
+              <td>{t.email}</td>
+              <td>
+                <Link to={`/user/add/${t.id}`}>
+                  <i className="fas fa-edit text-warning mx-2 pointer"></i>
+                </Link>
+                <i
+                  className="fas fa-trash text-danger mx-2 pointer"
+                  onClick={() => handleDelete(t.id)}
+                ></i>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
