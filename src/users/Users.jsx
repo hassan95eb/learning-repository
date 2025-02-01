@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import style from "../style.module.css";
 import { Link } from "react-router";
 import swal from "sweetalert";
-import axios from "axios";
+import { setUserService, deleteUserService } from "../Service/userService";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
+  const [mainUsers, setMainUsers] = useState([]);
+
   useEffect(() => {
-    axios.get("https://jsonplaceholder.typicode.com/users").then((res) => {
-      setUsers(res.data);
-    });
+    setUserService(setMainUsers, setUsers);
   }, []);
+
   function handleDelete(id) {
     swal({
       title: "Are you sure?",
@@ -20,25 +21,15 @@ const Users = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        axios
-          .delete(`https://jsonplaceholder.typicode.com/users/${id}`)
-          .then((res) => {
-            if (res.status === 200) {
-              const newUsers = users.filter((t) => t.id != id);
-              setUsers(newUsers);
-              swal("Poof! Your imaginary file has been deleted!", {
-                icon: "success",
-              });
-            } else {
-              swal("errorrrrr", {
-                icon: "error",
-              });
-            }
-          });
+        deleteUserService(id, users, setUsers);
       } else {
         swal("Your imaginary file is safe!");
       }
     });
+  }
+  function handleSearch(e) {
+    console.log(e.target.value);
+    setUsers(mainUsers.filter((f) => f.name.includes(e.target.value)));
   }
   return (
     <div className={`${style.item_content} mt-5 p-4 container-fluid`}>
@@ -49,6 +40,7 @@ const Users = () => {
             type="text"
             className="form-control shadow"
             placeholder="جستجو"
+            onChange={handleSearch}
           />
         </div>
         <div className="col-2 text-start px-0">
