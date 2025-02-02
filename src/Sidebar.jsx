@@ -28,6 +28,9 @@ const Sidebar = () => {
         <li>
           <Link to="/todos">کارها</Link>
         </li>
+        <li>
+          <Link to="/others">سایر</Link>
+        </li>
       </ul>
     </div>
   );
