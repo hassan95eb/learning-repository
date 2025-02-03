@@ -8,6 +8,7 @@ import Users from "./users/Users";
 import { Route, Routes } from "react-router";
 import AddUser from "./users/AddUser";
 import Others from "./other/Other";
+import AddPost from "./posts/AddPost";
 
 const Content = () => {
   const { showMenu, setShowMenu } = useContext(MainContext);
@@ -41,6 +42,9 @@ const Content = () => {
           <Route path=":id" />
         </Route>
         <Route path="/posts" element={<Posts />} />
+        <Route path="/posts/add" element={<AddPost />}>
+          <Route path=":id" />
+        </Route>
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/todos" element={<Todos />} />
         <Route path="/others" element={<Others />} />

@@ -6,7 +6,8 @@ label {
   display: block;
   margin-bottom: 5px;
 }
-input {
+input,
+textarea {
   padding: 5px 2px;
   width: 100%;
   border: 1px solid #7e7e7e;
@@ -16,7 +17,12 @@ input {
   -ms-border-radius: 4px;
   -o-border-radius: 4px;
 }
-input:focus {
+textarea {
+  direction: ltr;
+  text-align: left;
+}
+input:focus,
+textarea:focus {
   outline: 1px solid #86bb60;
   border: 1px solid #86bb60;
 }

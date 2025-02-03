@@ -28,7 +28,7 @@ const Posts = () => {
           />
         </div>
         <div className="col-2 text-start px-0">
-          <Link to="/user/add">
+          <Link to="/posts/add">
             <button className="btn btn-success">
               <i className="fas fa-plus text-light"></i>
             </button>
@@ -54,7 +54,7 @@ const Posts = () => {
                 <td>{t.title}</td>
                 <td>{t.body}</td>
                 <td>
-                  <Link to={`/post/add/${t.id}`}>
+                  <Link to={`/posts/add/${t.id}`}>
                     <i className="fas fa-edit text-warning mx-2 pointer"></i>
                   </Link>
                   <i
@@ -69,7 +69,7 @@ const Posts = () => {
       ) : (
         <>
           <br />
-          <div className="text-center h3"> موردی برای نمایش وجود ندارد. </div>
+          <div className="text-center h3"> لطفا صبر کنید </div>
         </>
       )}
     </div>
