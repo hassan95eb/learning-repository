@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import style from "../style.module.css";
 import { Link } from "react-router";
@@ -68,7 +69,7 @@ const Posts = () => {
                 <td>{t.id}</td>
                 <td
                   style={{ color: "#ff0000" }}
-                  onClick={(e) => setUId(t.userId)}
+                  onClick={() => setUId(t.userId)}
                 >
                   {t.userId}
                 </td>
