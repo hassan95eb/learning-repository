@@ -5,15 +5,28 @@ import { jpAxios } from "../Service/jpAxios";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
-  function handleSearch() {}
+  const [mainPosts, setMainPosts] = useState([]);
+  const [uId, setUId] = useState("");
+
   const handleDelete = () => {};
   const getPosts = async () => {
     const result = await jpAxios.get("/posts");
     setPosts(result.data);
+    setMainPosts(result.data);
   };
+  function handleSearch() {
+    setPosts(mainPosts.filter((t) => t.userId == uId));
+  }
   useEffect(() => {
     getPosts();
   }, []);
+  useEffect(() => {
+    if (uId > 0) {
+      handleSearch();
+    } else {
+      getPosts();
+    }
+  }, [uId]);
 
   return (
     <div className={`${style.item_content} mt-5 p-4 container-fluid`}>
@@ -24,7 +37,10 @@ const Posts = () => {
             type="text"
             className="form-control shadow"
             placeholder="جستجو"
-            onChange={handleSearch}
+            onChange={(e) => {
+              setUId(e.target.value);
+            }}
+            value={uId}
           />
         </div>
         <div className="col-2 text-start px-0">
@@ -50,7 +66,12 @@ const Posts = () => {
             {posts.map((t) => (
               <tr key={t.id}>
                 <td>{t.id}</td>
-                <td>{t.userId}</td>
+                <td
+                  style={{ color: "#ff0000" }}
+                  onClick={(e) => setUId(t.userId)}
+                >
+                  {t.userId}
+                </td>
                 <td>{t.title}</td>
                 <td>{t.body}</td>
                 <td>
