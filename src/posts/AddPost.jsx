@@ -12,17 +12,20 @@ export default function AddPost() {
     title: "",
     body: "",
   });
-
+  const getPost = async () => {
+    const res = await jpAxios.get(`/posts/${params.id}`);
+    if (res.status == 200) {
+      setPost({
+        id: res.data.id,
+        userId: res.data.userId,
+        title: res.data.title,
+        body: res.data.body,
+      });
+    }
+  };
   useEffect(() => {
     if (params.id) {
-      jpAxios.get(`/posts/${params.id}`).then((res) =>
-        setPost({
-          id: res.data.id,
-          userId: res.data.userId,
-          title: res.data.title,
-          body: res.data.body,
-        })
-      );
+      getPost();
     }
   }, []);
   const handleSubmit = (e) => {
